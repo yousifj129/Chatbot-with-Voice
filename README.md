@@ -59,7 +59,7 @@ This repository contains a chatbot application that allows users to interact wit
    - Scroll the chat history to view the conversation.
 
 3. Exiting the Application:
-   - Close the chatbot window or press `Ctrl+C` in the terminal to stop the application.
+   - Close the chatbot window.
    - The speech recognition and text-to-speech engines will be stopped automatically.
      Note: the application doesnt close sometimes when the windows is closed, check your task manager and see the ram usage.
 
