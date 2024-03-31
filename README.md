@@ -1,4 +1,3 @@
-````
 # Chatbot with Voice
 
 This repository contains a chatbot application that allows users to interact with the chatbot using speech input and output. The chatbot is powered by the Llama language model, providing intelligent responses to user queries.
@@ -24,7 +23,7 @@ This repository contains a chatbot application that allows users to interact wit
 
    ```shell
    git clone https://github.com/your-username/chatbot-with-voice.git
-````
+   ```
 
 2. Navigate to the project directory:
 
@@ -78,7 +77,4 @@ Feel free to customize the chatbot application to suit your needs. Some possible
 
 This project is licensed under the [MIT License](LICENSE).
 
-```
-
 You can save this content in a file named `README.md` in the root directory of your project. Make sure to update the file paths, model information, and any other relevant details specific to your project.
-```
