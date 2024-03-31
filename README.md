@@ -22,13 +22,13 @@ This repository contains a chatbot application that allows users to interact wit
 1. Clone the repository:
 
    ```shell
-   git clone https://github.com/your-username/chatbot-with-voice.git
+   git clone https://github.com/yousifj129/Chatbot-with-Voice.git
    ```
 
 2. Navigate to the project directory:
 
    ```shell
-   cd chatbot-with-voice
+   cd Chatbot with Voice
    ```
 
 3. Install the required dependencies:
@@ -41,16 +41,14 @@ This repository contains a chatbot application that allows users to interact wit
 
    - By default, the chatbot uses the Llama language model provided in the repository. If you want to change the model, follow the steps below:
      - Download the desired Llama model in the `.gguf` format.
-     - Replace the existing model file (`llama-2-7b-chat.Q4_K_M.gguf`) in the `AI` directory with your downloaded model.
-     - Make sure the new model file has the same name and file extension.
-     - Update the `LLM` initialization code in `chatbot_with_voice.py` to include the correct model path.
+     - Replace the existing model file (`llama-2-7b-chat.Q4_K_M.gguf`) and place your own model with the path of your downloaded model.
 
 ## Usage
 
 1. Run the `chatbot_with_voice.py` script:
 
    ```shell
-   python chatbot_with_voice.py
+   python main.py
    ```
 
 2. Graphical User Interface (GUI):
@@ -63,6 +61,7 @@ This repository contains a chatbot application that allows users to interact wit
 3. Exiting the Application:
    - Close the chatbot window or press `Ctrl+C` in the terminal to stop the application.
    - The speech recognition and text-to-speech engines will be stopped automatically.
+     Note: the application doesnt close sometimes when the windows is closed, check your task manager and see the ram usage.
 
 ## Customization
 
@@ -72,9 +71,3 @@ Feel free to customize the chatbot application to suit your needs. Some possible
 - Adding additional features or functionalities.
 - Integrating with other APIs or services.
 - Implementing different speech recognition or text-to-speech engines.
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
-
-You can save this content in a file named `README.md` in the root directory of your project. Make sure to update the file paths, model information, and any other relevant details specific to your project.
