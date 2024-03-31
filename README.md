@@ -2,8 +2,6 @@
 
 This repository contains a chatbot application that allows users to interact with the chatbot using speech input and output. The chatbot is powered by the Llama language model, providing intelligent responses to user queries.
 
-![Chatbot with Voice](chatbot_with_voice.png)
-
 ## Features
 
 - Speech recognition: Convert user's speech into text input for the chatbot.
