@@ -23,14 +23,14 @@ current_input = "blank"
 recognizer = sr.Recognizer()
 engine = pyttsx3.init()
 engine.setProperty('rate', 135)
+engine
 
 
-def process_input():
+def process_input(currentText):
     global current_input, chat_history
 
     # Get the current input and add it to the chat history
-    input_text = current_input
-    chat_history.append(("You", input_text))
+    input_text = currentText
 
     # Clear the input field
     input_entry.delete(0, tk.END)
@@ -39,32 +39,31 @@ def process_input():
     chat_history_text.config(state=tk.NORMAL)
     chat_history_text.insert(tk.END, "You: " + input_text + "\n")
     chat_history_text.config(state=tk.DISABLED)
-    output = LLM.create_chat_completion(
-        messages=[
-                    {
-                        "role": "system",
-                        "content": "you are a human named jack, you speak like eminem, you dont talk too much (2 lines maximum)"
-                    },
-                    {
-                        "role": "user",
-                        "content": input_text
-                    }
-                ]
-                
-                )
+    messages = [
+        {
+            "role": "system",
+            "content": "you are a helpful assistant, help the user, keep it all short (1 line maximum)"+
+            f"\nfor context, here is the history: {chat_history}"
+        },
+        {
+            "role": "user",
+            "content": input_text
+        }
+    ]
+    output = LLM.create_chat_completion(messages)
     print(output)
     # Process the input and get the chatbot's response
     response = output["choices"][0]["message"]["content"]
-
+    chat_history.append(("user: ", input_text))
     # Add the chatbot's response to the chat history
-    chat_history.append(("Chatbot", response))
+    chat_history.append(("you: ", response))
     # Display the chatbot's response in the chat history
     chat_history_text.config(state=tk.NORMAL)
     chat_history_text.insert(tk.END, "Chatbot: " + response + "\n")
     chat_history_text.config(state=tk.DISABLED)
     # Speak the chatbot's response
-    engine.say(response)
-    engine.runAndWait()
+    # engine.say(response)
+    # engine.runAndWait()
 
     
 
@@ -81,15 +80,15 @@ def listen_microphone():
             try:
                 # Listen for the user's input
                 audio = recognizer.listen(source)
-
+                print("gonna rec")
                 # Recognize the speech
                 text = recognizer.recognize_google(audio)
-
+                print("error?")
                 # Set the current input to the recognized text
                 current_input = text
 
                 # Process the input
-                process_input()
+                process_input(current_input)
 
             except sr.UnknownValueError:
                 pass
@@ -104,14 +103,16 @@ def on_window_close():
     recognizer.__exit__()
     engine.stop()
     root.destroy()
+    print("window closed")
     # Stop the AI model
     LLM.__exit__()
     exit(LLM)
     # Close the application window
-
+    print("LLM closed")
     exit()
 
 def on_closing():
+    print("closing")
     on_window_close()
 # Create the GUI
 root = tk.Tk()
@@ -140,7 +141,7 @@ input_entry = ttk.Entry(input_frame)
 input_entry.pack(side=tk.LEFT)
 
 # Create a button to submit the user's input
-submit_button = ttk.Button(input_frame, text="Submit", command=process_input)
+submit_button = ttk.Button(input_frame, text="Submit", command=lambda: Thread(process_input(input_entry.get())).start())
 submit_button.pack(side=tk.LEFT, padx=10)
 
 # Create a button to start listening to the microphone
@@ -148,3 +149,4 @@ listen_button = ttk.Button(root, text="Listen", command=start_listening)
 listen_button.pack(pady=10)
 # Start the GUI event loop
 root.mainloop()
+
