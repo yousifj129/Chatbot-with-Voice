@@ -10,11 +10,6 @@ This repository contains a chatbot application that allows users to interact wit
 - Graphical user interface (GUI): Intuitive interface for interacting with the chatbot.
 - Multithreading: Simultaneous speech recognition and text-to-speech functionality.
 
-## Requirements
-
-- Python 3.7 or above
-- Dependencies listed in `requirements.txt`
-
 ## Installation
 
 1. Clone the repository:

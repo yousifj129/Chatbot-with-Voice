@@ -5,7 +5,9 @@ from tkinter import ttk
 from threading import Thread
 from llama_cpp import Llama
 
-LLM = Llama(model_path="../AI/llama-2-7b-chat.Q4_K_M.gguf", n_threads=16, n_ctx=2048, n_batch=2048,n_gpu_layers=1,seed=1337,)
+LLM = Llama(
+    model_path="../AI/llama-2-7b-chat.Q4_K_M.gguf", n_threads=2, n_ctx=2048, n_batch=2048,n_gpu_layers=-1,seed=1337
+    )
 
 # create a text prompt
 
@@ -37,10 +39,22 @@ def process_input():
     chat_history_text.config(state=tk.NORMAL)
     chat_history_text.insert(tk.END, "You: " + input_text + "\n")
     chat_history_text.config(state=tk.DISABLED)
-    output = LLM(f"note: you are a chatbot that talks with the user. Q: {input_text}\n Your Response:",max_tokens=32)
+    output = LLM.create_chat_completion(
+        messages=[
+                    {
+                        "role": "system",
+                        "content": "you are a human named jack, you speak like eminem, you dont talk too much (2 lines maximum)"
+                    },
+                    {
+                        "role": "user",
+                        "content": input_text
+                    }
+                ]
+                
+                )
     print(output)
     # Process the input and get the chatbot's response
-    response = output["choices"][0]["text"]
+    response = output["choices"][0]["message"]["content"]
 
     # Add the chatbot's response to the chat history
     chat_history.append(("Chatbot", response))
@@ -89,12 +103,12 @@ def on_window_close():
     # Stop the speech recognition and text-to-speech engines
     recognizer.__exit__()
     engine.stop()
-
-    # Stop the AI model
-
-
-    # Close the application window
     root.destroy()
+    # Stop the AI model
+    LLM.__exit__()
+    exit(LLM)
+    # Close the application window
+
     exit()
 
 def on_closing():
